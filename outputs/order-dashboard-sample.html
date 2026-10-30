@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#edf2db" />
+    <title>Jersey Haven · Sample order desk</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #edf2db;
+        --surface: #f8f9ef;
+        --surface-deep: #dfe7cc;
+        --ink: #17221b;
+        --green: #12382b;
+        --orange: #ff6840;
+        --yellow: #f4c944;
+        --muted: #536156;
+        --line: rgba(23, 34, 27, .18);
+        --sans: 'Public Sans', 'Segoe UI', Arial, sans-serif;
+        --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 14px; }
+      button, select { font: inherit; }
+      button:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+      .shell { max-width: 1440px; margin: 0 auto; padding: 0 36px 56px; }
+      .topbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 78px; border-bottom: 1px solid var(--line); }
+      .brand { display: flex; align-items: center; gap: 11px; font: 800 20px/.9 var(--display); letter-spacing: -.02em; }
+      .mark { width: 31px; height: 31px; display: grid; align-content: center; gap: 3px; padding: 6px 5px; background: var(--orange); transform: rotate(-7deg); }
+      .mark i { display: block; height: 3px; background: var(--ink); }
+      .mark i:nth-child(2) { width: 70%; }
+      .mark i:nth-child(3) { width: 86%; }
+      .top-meta { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 650; }
+      .avatar { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: var(--paper); font-size: 11px; font-weight: 800; }
+      .notice { display: flex; gap: 10px; align-items: flex-start; margin: 22px 0 30px; padding: 13px 15px; border: 1px solid var(--line); background: rgba(248,249,239,.72); color: #38463b; font-size: 12px; line-height: 1.55; }
+      .notice strong { color: var(--ink); }
+      .notice-mark { flex: none; width: 8px; height: 8px; margin-top: 4px; border-radius: 50%; background: var(--orange); }
+      .heading-row { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
+      h1 { margin: 0; font: 800 44px/.95 var(--display); letter-spacing: -.025em; }
+      .subhead { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+      .period { min-height: 40px; border: 1px solid var(--line); padding: 0 12px; background: transparent; color: var(--ink); }
+      .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); margin-bottom: 22px; border: 1px solid var(--line); background: var(--surface); }
+      .stat { min-height: 84px; padding: 17px 20px; border-right: 1px solid var(--line); }
+      .stat:last-child { border-right: 0; }
+      .stat-label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+      .stat-value { font-size: 23px; font-weight: 750; font-variant-numeric: tabular-nums; }
+      .stat-value small { color: var(--muted); font-size: 11px; font-weight: 600; }
+      .workspace { display: grid; grid-template-columns: minmax(0,1.7fr) minmax(280px,.8fr); gap: 20px; align-items: start; }
+      .panel { border: 1px solid var(--line); background: var(--surface); }
+      .panel-head { min-height: 62px; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+      h2 { margin: 0; font-size: 15px; font-weight: 750; }
+      .panel-meta { color: var(--muted); font-size: 11px; }
+      .filters { display: flex; gap: 8px; }
+      .filter { min-height: 32px; border: 1px solid var(--line); padding: 0 9px; background: transparent; color: var(--ink); font-size: 11px; }
+      .table-wrap { overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; text-align: left; }
+      th { padding: 11px 14px; color: var(--muted); font-size: 10px; font-weight: 750; letter-spacing: .055em; text-transform: uppercase; white-space: nowrap; }
+      td { padding: 14px; border-top: 1px solid var(--line); vertical-align: top; font-size: 12px; }
+      tbody tr:first-child td { border-top: 1px solid var(--line); }
+      .ref { color: var(--green); font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .customer { font-weight: 700; }
+      .secondary { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+      .amount { white-space: nowrap; font-weight: 750; font-variant-numeric: tabular-nums; }
+      .status { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 5px 8px; font-size: 10px; font-weight: 750; white-space: nowrap; }
+      .status::before { width: 6px; height: 6px; border-radius: 50%; background: currentColor; content: ''; }
+      .pending { background: #fff1c8; color: #705310; }
+      .review { background: #e9eddb; color: #40513b; }
+      .paid { background: #dcefe2; color: #205b36; }
+      .side { display: grid; gap: 16px; }
+      .message { padding: 18px; }
+      .message-top { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 16px; }
+      .channel { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 750; }
+      .channel-icon { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: #dcefe2; color: #205b36; font-size: 11px; font-weight: 800; }
+      .time { color: var(--muted); font-size: 10px; }
+      .message h3 { margin: 0 0 12px; font-size: 14px; }
+      .message-body { margin: 0; padding: 14px; background: var(--paper); color: #334238; font-size: 12px; line-height: 1.65; white-space: pre-line; }
+      .message-foot { margin: 12px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+      .steps { padding: 0 18px 18px; }
+      .steps h3 { margin: 16px 0 13px; font-size: 13px; }
+      .step { display: grid; grid-template-columns: 22px 1fr; gap: 9px; padding: 9px 0; color: #435046; font-size: 11px; line-height: 1.5; }
+      .step-no { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-deep); color: var(--green); font-size: 10px; font-weight: 800; }
+      .step strong { color: var(--ink); }
+      .footnote { margin: 16px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+      @media (max-width: 980px) { .workspace { grid-template-columns: 1fr; } .side { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+      @media (max-width: 680px) {
+        .shell { padding: 0 16px 32px; }
+        .topbar { min-height: 66px; }
+        .top-meta span { display: none; }
+        .heading-row { align-items: start; flex-direction: column; }
+        h1 { font-size: 38px; }
+        .stats { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        .stat:nth-child(2) { border-right: 0; }
+        .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+        .panel-head { align-items: flex-start; flex-direction: column; }
+        .side { grid-template-columns: 1fr; }
+        table { min-width: 760px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>JERSEY HAVEN <span style="font:600 11px var(--sans); color:var(--muted)">/ ORDER DESK</span></div>
+        <div class="top-meta"><span>Sample shop owner view</span><span class="avatar" aria-label="Shop owner">JH</span></div>
+      </header>
+
+      <div class="notice"><span class="notice-mark" aria-hidden="true"></span><span><strong>Illustrative sample only.</strong> This is a standalone mockup with made-up orders. It is not connected to the Jersey Haven shop, and it does not send real notifications.</span></div>
+
+      <section aria-labelledby="page-title">
+        <div class="heading-row">
+          <div><h1 id="page-title">Order desk</h1><p class="subhead">Review new requests, match MoMo payments, and confirm delivery.</p></div>
+          <label><span class="panel-meta" style="margin-right:8px">View</span><select class="period" aria-label="Choose sample date range"><option>Today · 12 Oct 2026</option></select></label>
+        </div>
+
+        <div class="stats" aria-label="Sample order summary">
+          <div class="stat"><span class="stat-label">New requests</span><span class="stat-value">3 <small>today</small></span></div>
+          <div class="stat"><span class="stat-label">Awaiting payment</span><span class="stat-value">1</span></div>
+          <div class="stat"><span class="stat-label">Needs review</span><span class="stat-value">2</span></div>
+          <div class="stat"><span class="stat-label">Order value</span><span class="stat-value">GH₵970</span></div>
+        </div>
+
+        <div class="workspace">
+          <section class="panel" aria-labelledby="orders-title">
+            <div class="panel-head"><div><h2 id="orders-title">Recent orders</h2><span class="panel-meta">3 sample requests</span></div><div class="filters" aria-label="Sample filter labels"><span class="filter">All statuses</span><span class="filter">All payments</span></div></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Reference</th><th>Customer</th><th>Order</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="ref">JH-1012-A7K2QF</span><span class="secondary">10:42 AM</span></td><td><span class="customer">Ama Mensah</span><span class="secondary">024 XXX XXXX · Osu</span></td><td>Black Stars · Home<span class="secondary">Size M × 1</span></td><td class="amount">GH₵320</td><td>Manual MoMo<span class="secondary">MTN</span></td><td><span class="status pending">Awaiting payment</span></td></tr>
+                  <tr><td><span class="ref">JH-1012-D3P8LM</span><span class="secondary">10:18 AM</span></td><td><span class="customer">Kojo Asare</span><span class="secondary">020 XXX XXXX · Madina</span></td><td>Hearts · Heritage<span class="secondary">Size L × 1</span></td><td class="amount">GH₵285</td><td>Cash on delivery<span class="secondary">Pay on arrival</span></td><td><span class="status review">Confirm area</span></td></tr>
+                  <tr><td><span class="ref">JH-1012-N6R1BW</span><span class="secondary">9:56 AM</span></td><td><span class="customer">Esi Owusu</span><span class="secondary">055 XXX XXXX · East Legon</span></td><td>Milan · Rossoneri<span class="secondary">Size S × 1</span></td><td class="amount">GH₵365</td><td>Manual MoMo<span class="secondary">Payment checked</span></td><td><span class="status paid">Ready to confirm</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="side" aria-label="Example notification and next steps">
+            <section class="panel" aria-labelledby="notification-title">
+              <div class="panel-head"><h2 id="notification-title">Automatic notification</h2><span class="panel-meta">Example · email or WhatsApp</span></div>
+              <div class="message">
+                <div class="message-top"><div class="channel"><span class="channel-icon" aria-hidden="true">JH</span>Jersey Haven orders</div><time class="time">Just now</time></div>
+                <h3>New order request · JH-1012-A7K2QF</h3>
+                <p class="message-body">New order request
+Reference: JH-1012-A7K2QF
+Customer: Ama Mensah · 024 111 2233
+Item: Black Stars · Home, size M × 1
+Total: GH₵320
+Payment: Manual MoMo — awaiting verification
+Delivery: Osu</p>
+                <p class="message-foot">The owner uses the reference to find this request in the order log and match the incoming MoMo payment.</p>
+              </div>
+            </section>
+
+            <section class="panel" aria-labelledby="workflow-title">
+              <div class="panel-head"><h2 id="workflow-title">What the owner does</h2><span class="panel-meta">For the sample order</span></div>
+              <div class="steps">
+                <h3>JH-1012-A7K2QF</h3>
+                <div class="step"><span class="step-no">1</span><span><strong>Open the order.</strong> Check the customer, jersey, size, amount, and delivery area.</span></div>
+                <div class="step"><span class="step-no">2</span><span><strong>Verify payment.</strong> Check the MoMo merchant account for GH₵320 and the reference.</span></div>
+                <div class="step"><span class="step-no">3</span><span><strong>Confirm with customer.</strong> Send a message when payment and stock are checked.</span></div>
+                <p class="footnote">For cash on delivery, skip payment verification. Confirm the area and delivery details instead.</p>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

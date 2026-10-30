@@ -1,0 +1,12 @@
+# Local secrets and private configuration
+.env
+.env.*
+!.env.example
+/outputs/store-config.js
+
+# Local development and authoring artifacts
+node_modules/
+.DS_Store
+Thumbs.db
+.impeccable/
+work/

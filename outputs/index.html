@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en-GH">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f1e7" />
+    <meta
+      name="description"
+      content="Shop national team shirts, club team shirts, and retro football jerseys at Jersey Haven."
+    />
+    <title>Jersey Haven — shirts with a story</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Public+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./store-config.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#catalog">Skip to shirts</a>
+    <div class="site-shell">
+      <header class="masthead">
+        <a class="brand" href="#top">
+          <img class="brand-logo" src="./Images/Logo.jpg" alt="Jersey Haven" />
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#catalog" class="nav-active">The collection</a>
+          <a href="#about">Our story</a>
+        </nav>
+        <div class="header-actions">
+          <label class="search-box" for="search-input">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="6.7"></circle>
+              <path d="m16 16 4.3 4.3"></path>
+            </svg>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Find a shirt"
+              autocomplete="off"
+            />
+            <kbd>/</kbd>
+          </label>
+          <button
+            class="bag-button"
+            type="button"
+            id="open-cart"
+            aria-label="Open shopping bag, 0 items"
+          >
+            <svg
+              class="bag-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M5 8h14l1 13H4L5 8Z"></path>
+              <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+            </svg>
+            <span class="bag-count" id="bag-count">0</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="hero-index">
+              <span>JH / 001</span><span>THE FOOTBALL SHIRT ARCHIVE</span>
+            </p>
+            <h1 id="hero-title">
+              Wear the shirt.<br /><em>Keep the story.</em>
+            </h1>
+            <div class="hero-bottom">
+              <p>
+                National colours, club favourites and retro classics. All in one
+                place.
+              </p>
+              <a
+                class="round-link"
+                href="#catalog"
+                aria-label="Explore the collection"
+                ><span>Explore<br />the collection</span
+                ><svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h13M12 5l7 7-7 7"></path></svg
+              ></a>
+            </div>
+          </div>
+          <div
+            class="hero-visual"
+            role="img"
+            aria-label="Illustrative football shirts from the Jersey Haven demo collection"
+          >
+            <img
+              class="hero-photo hero-photo-back"
+              src="https://images.unsplash.com/photo-1641947521468-a2699a318c62?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+              alt=""
+              fetchpriority="low"
+            />
+            <img
+              class="hero-photo hero-photo-main"
+              src="https://images.unsplash.com/photo-1689624291744-034ee30c8799?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+              alt=""
+              fetchpriority="high"
+            />
+            <span class="hero-stamp"
+              >A shirt<br />has a life<br />of its own.</span
+            >
+          </div>
+        </section>
+
+        <section class="collection-index" aria-label="Shop by collection">
+          <button
+            class="collection-tab is-active"
+            type="button"
+            data-category="all"
+            aria-pressed="true"
+          >
+            <span class="tab-no">A</span><span>All Jerseys</span
+            ><span class="tab-arrow">↘</span>
+          </button>
+          <button
+            class="collection-tab"
+            type="button"
+            data-category="national"
+            aria-pressed="false"
+          >
+            <span class="tab-no">B</span><span>National teams</span
+            ><span class="tab-arrow">↘</span>
+          </button>
+          <button
+            class="collection-tab"
+            type="button"
+            data-category="club"
+            aria-pressed="false"
+          >
+            <span class="tab-no">C</span><span>Club teams</span
+            ><span class="tab-arrow">↘</span>
+          </button>
+          <button
+            class="collection-tab"
+            type="button"
+            data-category="retro"
+            aria-pressed="false"
+          >
+            <span class="tab-no">D</span><span>Retro</span
+            ><span class="tab-arrow">↘</span>
+          </button>
+        </section>
+
+        <section
+          id="catalog"
+          class="catalog-section"
+          aria-labelledby="catalog-title"
+        >
+          <div class="catalog-heading">
+            <div>
+              <p class="section-index">
+                THE COLLECTION / <span id="collection-label">ALL JERSEYS</span>
+              </p>
+              <h2 id="catalog-title">Find your colours.</h2>
+            </div>
+            <p class="demo-note">
+              <span class="dot"></span>Fan GH₵150 · Player GH₵180 · Custom fan
+              name +GH₵30
+            </p>
+          </div>
+
+          <div class="results-line">
+            <p aria-live="polite">
+              <strong id="result-count">0</strong> jerseys in the archive
+            </p>
+            <p class="results-key">
+              <span class="key-chip key-national">NATIONAL</span
+              ><span class="key-chip key-club">CLUB</span
+              ><span class="key-chip key-retro">RETRO</span>
+            </p>
+          </div>
+          <div class="product-grid" id="product-grid" aria-busy="false"></div>
+          <div class="empty-state" id="empty-state" hidden>
+            <span class="empty-number">00</span>
+            <h3>No jerseys found.</h3>
+            <p>Try a different search, or browse all available jerseys.</p>
+            <button class="button button-dark" id="empty-reset" type="button">
+              Show all jerseys
+            </button>
+          </div>
+        </section>
+
+        <section class="archive-callout" id="about">
+          <div class="callout-mark" aria-hidden="true">JH</div>
+          <div class="callout-copy">
+            <h2>Every shirt<br />has a <em>first match.</em></h2>
+            <p>
+              And every fan remembers the one that mattered. Jersey Haven brings
+              together the shirts that stay with you, from the first whistle to
+              the next generation.
+            </p>
+          </div>
+          <div class="callout-foot">
+            <span>AN ARCHIVE FOR THE LOVE OF THE GAME</span
+            ><a href="#catalog"
+              >Back to the shirts <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <a class="footer-brand" href="#top">JERSEY HAVEN<span>®</span></a>
+        <p>For fans in Ghana and wherever the game goes.</p>
+      </footer>
+    </div>
+
+    <aside
+      class="cart-panel"
+      id="cart-panel"
+      aria-labelledby="cart-title"
+      aria-hidden="true"
+    >
+      <div class="panel-shade" id="panel-shade"></div>
+      <div
+        class="cart-sheet"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping bag"
+      >
+        <div class="panel-head">
+          <div>
+            <p class="section-index">
+              YOUR PICKS / <span id="cart-item-count">00</span>
+            </p>
+            <h2 id="cart-title">The bag.</h2>
+          </div>
+          <button
+            class="icon-button"
+            type="button"
+            id="close-cart"
+            aria-label="Close shopping bag"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6 6 12 12M18 6 6 18"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-empty" id="cart-empty">
+          <span class="empty-number">00</span>
+          <p>Your bag is waiting for its first shirt.</p>
+          <button type="button" class="text-button" id="keep-browsing">
+            Keep exploring <span>↗</span>
+          </button>
+        </div>
+        <div class="cart-foot" id="cart-foot" hidden>
+          <div class="subtotal-line">
+            <span>Subtotal</span><strong id="cart-subtotal">GH₵0</strong>
+          </div>
+          <p>
+            Payment is arranged directly with Jersey Haven after you place an
+            order request.
+          </p>
+          <button
+            class="button button-orange"
+            type="button"
+            id="checkout-button"
+          >
+            Continue to checkout <span>↗</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <dialog
+      class="size-dialog"
+      id="size-dialog"
+      aria-labelledby="size-dialog-title"
+    >
+      <form method="dialog" class="dialog-close-row">
+        <button class="icon-button" aria-label="Close size selection">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18"></path>
+          </svg>
+        </button>
+      </form>
+      <div class="size-dialog-content">
+        <div class="dialog-image" id="dialog-image"></div>
+        <div class="dialog-details">
+          <p class="section-index" id="dialog-team">JERSEY HAVEN / ARCHIVE</p>
+          <h2 id="size-dialog-title">Make it yours.</h2>
+          <p id="dialog-product-name" class="dialog-product-name"></p>
+          <p id="dialog-product-price" class="dialog-product-price"></p>
+          <fieldset class="version-options">
+            <legend>Choose a version</legend>
+            <div class="version-options-list">
+              <label class="version-choice">
+                <input type="radio" name="jersey-version" value="fan" checked />
+                <span><span>Fan version</span><strong>GH₵150</strong></span>
+              </label>
+              <label class="version-choice">
+                <input type="radio" name="jersey-version" value="player" />
+                <span
+                  ><span>Original version</span><strong>GH₵180</strong></span
+                >
+              </label>
+            </div>
+          </fieldset>
+          <fieldset class="size-options">
+            <legend>Pick a size</legend>
+            <div id="size-options-list"></div>
+          </fieldset>
+          <label class="custom-name-choice" id="custom-name-choice">
+            <input type="checkbox" id="custom-name-toggle" />
+            <span
+              >Add a custom name to the fan version
+              <strong>+GH₵30</strong></span
+            >
+          </label>
+          <label class="custom-name-field" id="custom-name-field" hidden>
+            Name on the jersey
+            <input
+              id="custom-name-input"
+              type="text"
+              maxlength="16"
+              autocomplete="off"
+              placeholder="Enter the name"
+            />
+          </label>
+          <p
+            class="selected-variant-price"
+            id="selected-variant-price"
+            aria-live="polite"
+          >
+            Fan version · GH₵150
+          </p>
+          <p class="field-error" id="size-error" aria-live="polite"></p>
+          <button class="button button-orange" type="button" id="confirm-add">
+            Add to bag <span>↗</span>
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog
+      class="checkout-dialog"
+      id="checkout-dialog"
+      aria-labelledby="checkout-title"
+    >
+      <form method="dialog" class="dialog-close-row">
+        <button class="icon-button" aria-label="Close checkout">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18"></path>
+          </svg>
+        </button>
+      </form>
+      <div class="checkout-content">
+        <div class="checkout-heading">
+          <p class="section-index">CHECKOUT / <span>GHANA</span></p>
+          <h2 id="checkout-title">Almost yours.</h2>
+          <p>
+            Place an order request, then arrange payment directly with the shop.
+          </p>
+        </div>
+        <form id="checkout-form" novalidate>
+          <div class="checkout-fields">
+            <label
+              >Full name<input
+                name="name"
+                autocomplete="name"
+                required
+                placeholder="Your name" /></label
+            ><label
+              >Mobile number<input
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                inputmode="tel"
+                required
+                placeholder="0XX XXX XXXX" /></label
+            ><label class="wide-field"
+              >Delivery area<input
+                name="area"
+                autocomplete="address-level2"
+                required
+                placeholder="e.g. Osu, Accra"
+            /></label>
+          </div>
+          <fieldset class="payment-methods" id="payment-info">
+            <legend>How would you like to pay?</legend>
+            <p>Choose a payment arrangement for this order request.</p>
+            <label class="payment-option"
+              ><input type="radio" name="payment" value="momo" checked /><span
+                class="payment-swatch mtn"
+                >M</span
+              ><span
+                ><strong>Manual Mobile Money</strong
+                ><small
+                  >Transfer to the shop’s MoMo merchant number</small
+                ></span
+              ><span class="radio-mark"></span
+            ></label>
+            <label class="payment-option" id="cod-option"
+              ><input type="radio" name="payment" value="cod" /><span
+                class="payment-swatch cod"
+                >₵</span
+              ><span
+                ><strong>Cash on delivery</strong
+                ><small id="cod-availability"
+                  >Tell us your area. The shop confirms delivery
+                  coverage.</small
+                ></span
+              ><span class="radio-mark"></span
+            ></label>
+          </fieldset>
+          <div class="payment-instructions" id="momo-instructions">
+            <p class="section-index">MANUAL MOMO / TRANSFER DETAILS</p>
+            <p>
+              <strong id="momo-merchant-name"
+                >Shop merchant name to be added</strong
+              >
+            </p>
+            <p class="merchant-number" id="momo-merchant-number">
+              Shop MoMo number to be added
+            </p>
+            <p>
+              Use the order reference shown after you continue as the payment
+              reference. Confirm payment with the shop before delivery.
+            </p>
+          </div>
+          <div class="checkout-total">
+            <span>Order total</span><strong id="checkout-total">GH₵0</strong>
+          </div>
+          <p class="checkout-error" id="checkout-error" role="alert"></p>
+          <button class="button button-green" type="submit">
+            Create order reference <span>↗</span>
+          </button>
+          <p class="checkout-legal">
+            This sends an order request, not a confirmed order. The shop will
+            verify payment or confirm cash on delivery with you.
+          </p>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog
+      class="success-dialog"
+      id="success-dialog"
+      aria-labelledby="success-title"
+    >
+      <div class="success-content">
+        <span class="success-mark" aria-hidden="true">JH</span>
+        <p class="section-index" id="order-status-label">
+          ORDER REQUEST / NOT YET CONFIRMED
+        </p>
+        <h2 id="success-title">Send this<br />order.</h2>
+        <p id="success-copy"></p>
+        <p class="order-reference" id="order-reference"></p>
+        <button
+          class="text-button copy-reference"
+          type="button"
+          id="copy-reference"
+        >
+          Copy reference
+        </button>
+        <div class="order-instructions" id="order-instructions"></div>
+        <p class="whatsapp-privacy-note" id="whatsapp-privacy-note" hidden>
+          Opening WhatsApp passes your name, phone number, delivery area and order details to WhatsApp to prefill the message. The shop receives it only if you press Send.
+        </p>
+        <p
+          class="order-send-status"
+          id="order-send-status"
+          role="status"
+          aria-live="polite"
+        >
+          Open WhatsApp, send the prefilled order message, then return here to
+          confirm.
+        </p>
+        <button
+          class="button button-orange"
+          type="button"
+          id="send-order"
+          hidden
+        >
+          Open WhatsApp message <span>↗</span>
+        </button>
+        <label class="order-sent-confirmation" id="order-sent-confirmation">
+          <input id="confirm-order-sent" type="checkbox" disabled />
+          <span>I sent the order message in WhatsApp.</span>
+        </label>
+        <button
+          class="button button-dark"
+          type="button"
+          id="finish-order"
+          disabled
+        >
+          Send the message to continue <span>↗</span>
+        </button>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
